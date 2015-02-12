@@ -79,27 +79,93 @@
     //
     // test if a specific row on this board contains a conflict
     hasRowConflictAt: function(rowIndex) {
-      return false; // fixme
+      //first, get access to array held at rowIndex
+      //use reduce to iterate through the array
+      //use iterator that sums all values in array
+      //if sum > 1
+        //more than 1 queen in row
+          //return true
+      //else return false
+
+      var row = this.get(rowIndex);
+
+      var count = _.reduce(row, function (current, next) {
+        return current + next;
+      });
+
+      return count > 1;
     },
 
     // test if any rows on this board contain conflicts
     hasAnyRowConflicts: function() {
-      return false; // fixme
+      // Initialize empty array.
+      // Iterate through this.attributes
+      // push each key into an array
+      // slice last index of an array
+      // iterate through object
+      // for i = 0 i < array.length; i++
+      // hasRowConflictAt for each i.
+      // if hasCAt return true.
+
+      var keys = [];
+      for(var key in this.attributes){
+        keys.push(key);
+      }
+      keys.pop();
+      for(var i = 0; i < keys.length; i++){
+        if(this.hasRowConflictAt(i)){
+          return true;
+        }
+      }
+      return false;
     },
-
-
 
     // COLUMNS - run from top to bottom
     // --------------------------------------------------------------
     //
     // test if a specific column on this board contains a conflict
     hasColConflictAt: function(colIndex) {
-      return false; // fixme
+    // Save this.attribute into a variable named table
+    // Iterate through table using reduce, arguments passed are row1 and row2
+      //inside reduce use for loop that looks at elements of both rows
+      // Add elements of both rows together
+      // Return the added up row
+    //Save the reduced result into variable addedUpColumns
+    //Subset that with colIndex
+    //If subsetted value > 1
+      // return true
+    // else false
+
+      var table = this.attributes;
+      var addedUp = _.reduce(table, function (row1, row2) {
+        if (Array.isArray(row2)) {
+          for (var i = 0; i < row1.length; i++) {
+            row1[i] = row1[i] + row2[i];
+          }
+        }
+        return row1;
+      });
+      return addedUp[colIndex] > 1;
     },
 
     // test if any columns on this board contain conflicts
     hasAnyColConflicts: function() {
-      return false; // fixme
+      //Iterate through added
+      var table = this.attributes;
+      var addedUp = _.reduce(table, function (row1, row2) {
+        if (Array.isArray(row2)) {
+          for (var i = 0; i < row1.length; i++) {
+            row1[i] = row1[i] + row2[i];
+          }
+        }
+        return row1;
+      });
+      for (var i = 0; i < addedUp.length; i++) {
+        if (addedUp[i] > 1) {
+          return true;
+        }
+      }
+      return false;
     },
 
 
